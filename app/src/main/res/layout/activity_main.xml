@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/status_view"
+        android:background="?attr/selectableItemBackground"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckedTextView
+            android:id="@+id/text_status"
+            android:visibility="gone"
+            android:checkMark="@null"
+            android:drawableStart="@drawable/status_selector_drawable"
+            android:drawablePadding="10dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:src="@android:drawable/stat_notify_sync_noanim"
+            android:tint="#444444"
+            android:layout_gravity="end|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--android:backgroundTint="#DD0000"-->
+        <Button
+            android:id="@+id/button_power"
+            android:text="Power"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp" />
+
+        <Button
+            android:id="@+id/button_restart"
+            android:text="Restart"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp" />
+
+        <Button
+            android:id="@+id/button_force_shutdown"
+            android:text="Forced Shutdown"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp" />
+
+    </LinearLayout>
+
+</FrameLayout>
