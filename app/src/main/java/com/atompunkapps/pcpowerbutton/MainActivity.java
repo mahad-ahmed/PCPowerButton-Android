@@ -3,11 +3,17 @@ package com.atompunkapps.pcpowerbutton;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckedTextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -29,6 +35,17 @@ public class MainActivity extends AppCompatActivity {
     private DatagramSocket socket;
 
     private CheckedTextView statusView;
+
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras();
+            //noinspection deprecation
+            if(bundle != null && ConnectivityManager.TYPE_WIFI == bundle.getInt("networkType", 0)) {
+                checkStatus();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         statusSocket.receive(packet);
                         final boolean status = packet.getData()[0] == 1;
-                        System.out.println("====Got thus far..");
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -114,7 +130,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkStatus();
+        //noinspection deprecation
+        registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
     }
 
     private void sendCommandAsync(final DatagramPacket packet, final View view) {
