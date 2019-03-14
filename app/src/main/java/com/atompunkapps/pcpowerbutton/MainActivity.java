@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         //noinspection deprecation
         registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        checkStatus();
     }
 
     @Override
