@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PC Power Button</string>
+    <string name="night_mode">Night Mode</string>
 </resources>
