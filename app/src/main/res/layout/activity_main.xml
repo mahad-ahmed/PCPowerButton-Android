@@ -33,8 +33,7 @@
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:src="@android:drawable/stat_notify_sync_noanim"
-            android:tint="#444444"
+            android:src="@drawable/ic_baseline_refresh_24px"
             android:layout_gravity="end|center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
