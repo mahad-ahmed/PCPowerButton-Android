@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckedTextView;
 
@@ -144,6 +146,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        menu.getItem(0).setChecked(
+                PreferenceManager.getDefaultSharedPreferences(this).getBoolean("night_mode", true)
+        );
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.night_mode_toggle) {
+            item.setChecked(!item.isChecked());
+            if(item.isChecked()) {
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else {
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("night_mode", item.isChecked()).apply();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void sendCommandAsync(final DatagramPacket packet, final View view) {
